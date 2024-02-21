@@ -1,0 +1,7 @@
+.venv
+.env
+
+user_app/migrations/0*
+product_app/migrations/0*
+
+db.sqlite3
