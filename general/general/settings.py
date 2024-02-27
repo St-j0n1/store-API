@@ -10,10 +10,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.environ.get('DEBUG')
 
-if DEBUG:
-    ALLOWED_HOSTS = ['*']  # TODO: remove in end of project.
-else:
-    ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+    "http://127.0.0.1:8000",
+
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -27,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_spectacular',
+    'corsheaders',
 
     # -------- [ APPS ] ---------
     'user_app.apps.UserAppConfig',
@@ -41,6 +45,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'general.urls'
@@ -159,3 +166,13 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
 }
+
+CORS_ALLOW_METHODS = (
+    # "DELETE",
+    "GET",
+    # "OPTIONS",
+    "PATCH",
+    "POST",
+    # "PUT",
+)
+

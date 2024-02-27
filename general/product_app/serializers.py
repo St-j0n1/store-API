@@ -1,31 +1,52 @@
 # serializers.py
 from rest_framework import serializers
-from .models import Product, ProductImage
+from rest_framework.response import Response
+from .models import Product, ProductImageUrl, Comments, Likes
+from user_app.serializer import UserProfileSerializer
 
 
-class ProductImageSerializer(serializers.ModelSerializer):
+class ProductImageUrlSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProductImage
-        fields = ('image',)
+        model = ProductImageUrl
+        fields = ['url', 'alt']
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    uploaded_images = serializers.ListField(
-        child=serializers.ImageField(allow_empty_file=False),
-        write_only=True
-    )
-    images = ProductImageSerializer(many=True, read_only=True)
+class ProductCreateSerializer(serializers.ModelSerializer):
+    image_urls = ProductImageUrlSerializer(many=True, source='productimageurl_set')
 
     class Meta:
         model = Product
-        fields = ('id', 'title', 'description', 'category', 'price', 'on_sale', 'sale_price', 'create_date', 'images',
-                  'uploaded_images')
+        fields = ['title', 'description', 'category', 'color', 'price', 'on_sale', 'sale_price', 'image_urls']
 
     def create(self, validated_data):
-        uploaded_images_data = validated_data.pop("uploaded_images")
+        image_urls = validated_data.pop('productimageurl_set')
         product = Product.objects.create(**validated_data)
 
-        for image_data in uploaded_images_data:
-            ProductImage.objects.create(product=product, image=image_data)
+        if image_urls:
+            for image_url in image_urls:
+                ProductImageUrl.objects.create(product=product, **image_url)
 
         return product
+
+
+class CommentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comments
+        fields = ['id', 'comment', 'owner', 'product']
+
+
+class LikesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Likes
+        fields = ['id', 'user', 'product']
+
+
+class CommentDetailsSerializer(serializers.ModelSerializer):
+    user = UserProfileSerializer(read_only=True)
+
+    class Meta:
+        model = Comments
+        fields = ['id', 'comment', 'owner', 'product']
+
+    def get_owner_username(self, obj):
+        return obj.owner.username

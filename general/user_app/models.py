@@ -67,6 +67,7 @@ class User(AbstractBaseUser):
         return True
 
     def __str__(self):
-        return f'{self.full_name} - {self.mobile} - {self.email}'
+        return f'{self.id}) {self.full_name} - {self.mobile} - {self.email}'
+
 
 
