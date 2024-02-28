@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 
-from .serializers import ProductCreateSerializer, CommentsSerializer, LikesSerializer
+from .serializers import ProductCreateSerializer, CommentsSerializer, LikesSerializer, ProductInformationSerializer
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework import status
@@ -81,3 +81,11 @@ class ProductFullInfoAPIView(APIView):
             'likes': likes,
             'comments': comments.data
         }, status=status.HTTP_200_OK)
+
+    def delete(self, request, *args, **kwargs):
+        product = Product.objects.get(pk=kwargs.get('pk'))
+        product.delete()
+        return Response({'message': 'deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+
+
+# TODO: prduct edit view
