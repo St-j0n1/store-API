@@ -88,4 +88,4 @@ class ProductFullInfoAPIView(APIView):
         return Response({'message': 'deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
 
-# TODO: prduct edit view
+
