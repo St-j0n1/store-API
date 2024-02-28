@@ -1,0 +1,57 @@
+/* Filter CSS */
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* width: 170px; */
+  gap: 6px;
+  right: 0px;
+  position: absolute;
+  z-index: 3;
+}
+
+.filter-icon {
+  margin: auto;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+@media screen and (max-width: 767px) {
+  .filter-icon {
+    right: 0;
+  }
+}
+
+.filter-dropdown {
+  height: 100px;
+  display: flex;
+  width: 170px;
+  right: 25px;
+  top: 35px;
+  position: absolute;
+  height: 134.867px;
+  background-color: #f2f2f2;
+  flex-direction: column;
+  gap: 6px;
+  padding: 11px 11.3px;
+  font-size: 15.032px;
+  font-weight: 300;
+}
+
+.filter-select-options {
+  background-color: transparent;
+  font-size: 15.032px;
+  font-weight: 300;
+  font-family: Noto Sans;
+  margin-left: -4px;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-options {
+  cursor: pointer;
+  line-height: 22px;
+}
