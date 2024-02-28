@@ -44,7 +44,7 @@ class User(AbstractBaseUser):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=100, unique=True)
-    mobile = models.CharField(max_length=100, help_text='+(995) 5** - *** - ***')
+    mobile = models.CharField(max_length=100, help_text='+(995) 5** - *** - ***', null=True, blank=True)
     password = models.CharField(max_length=100)
 
     data_joined = models.DateTimeField(auto_now_add=True)
@@ -72,7 +72,7 @@ class User(AbstractBaseUser):
 
 class Guests(models.Model):
     email = models.EmailField(unique=True)
-    number = models.CharField(max_length=20)
+    number = models.CharField(max_length=20, null=True, blank=True)
     message = models.TextField(blank=True, null=True)
 
     def __str__(self):
