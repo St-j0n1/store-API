@@ -50,3 +50,9 @@ class CommentDetailsSerializer(serializers.ModelSerializer):
 
     def get_owner_username(self, obj):
         return obj.owner.username
+
+
+class ProductInformationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'

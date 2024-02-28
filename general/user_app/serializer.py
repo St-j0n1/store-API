@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.response import Response
 
-from user_app.models import User
+from user_app.models import User, Guests
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
@@ -34,4 +34,8 @@ class UserDetailsUpdateSerializer(serializers.ModelSerializer):
         model = User
         fields = ('full_name', 'username', 'email', 'mobile', 'password')
 
-    # TODO: update user information
+
+class GuestInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Guests
+        fields = '__all__'
