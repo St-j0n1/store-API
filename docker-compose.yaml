@@ -16,6 +16,8 @@ services:
       context: ./frontend
     volumes:
       - frontend:/app/build
+    ports:
+      - "3000:3000"
 
   nginx:
     build:
